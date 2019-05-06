@@ -86,19 +86,11 @@ export default {
       })
     },
     shabi() {
-      if (this.form.id === undefined) {
-        this.$http.post('/api/list', this.form).then(res => {
-          this.dialogFormVisible = false
-          this.form = { name: '', leg: '' }
-          this.getlist()
-        })
-      } else {
-        this.$http.post('/api/list/edit', { id: this.form.id, name: this.form.name, leg: this.form.leg }).then(res => {
-          this.dialogFormVisible = false
-          this.form = { name: '', leg: '' }
-          this.getlist()
-        })
-      }
+      this.$http.post('/api/list/edit', { id: this.form.id, name: this.form.name, leg: this.form.leg }).then(res => {
+        this.dialogFormVisible = false
+        this.form = { name: '', leg: '' }
+        this.getlist()
+      })
     },
     openEdit(id, item) {
       const form = {

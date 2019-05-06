@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/todolist">
-        todolist
+      <router-link to="/login">
+        login
       </router-link>|
-      <router-link to="/">
-        li2
+      <router-link to="/za">
+        za
       </router-link>
     </div>
     <router-view />
@@ -31,4 +31,3 @@
   }
 }
 </style>
-
