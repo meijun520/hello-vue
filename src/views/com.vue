@@ -1,5 +1,16 @@
 <template>
   <div>
+    <el-form :inline="true" class="demo-form-inline">
+      <el-form-item label="搜索">
+        <el-input v-model="formInline" placeholder="关键字 " />
+      </el-form-item>
+
+      <el-form-item>
+        <el-button type="primary" @click="get()">
+          确认
+        </el-button>
+      </el-form-item>
+    </el-form>
     <el-table
       :data="tableData"
       border
@@ -85,7 +96,8 @@ export default {
         name: '',
         data: ''
       },
-      bianhao: ''
+      bianhao: '',
+      formInline: ''
 
     }
   },
@@ -94,7 +106,7 @@ export default {
   },
   methods: {
     getlist() {
-      this.$http.get('/api/list', { params: { keyword: this.keyword }}).then(res => {
+      this.$http.get('/api/list', { params: { keyword: this.formInline }}).then(res => {
         console.log(res)
         this.tableData = res.data.data
       })
@@ -104,12 +116,14 @@ export default {
         this.$http.post('/api/list', this.form).then(res => {
           this.dialogFormVisible = false
           this.form = { name: '', data: '' }
+          this.formInline = ''
           this.getlist()
         })
       } else {
         this.$http.post('/api/list/edit', { id: this.form.id, name: this.form.name, data: this.form.data }).then(res => {
           this.dialogFormVisible = false
           this.form = { name: '', data: '' }
+          this.formInline = ''
           this.getlist()
         })
       }
@@ -137,7 +151,13 @@ export default {
     },
     quren() {
       this.visible = false
+    },
+    get() {
+      this.$http.get('/api/list', { params: { keyword: this.formInline }}).then(res => {
+        this.getlist()
+      })
     }
+
   }
 }
 </script>
